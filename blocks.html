@@ -23,12 +23,13 @@
 			var container, stats;
 			var camera, controls, scene, renderer;
 			var objects = [];
-			var mouse = new THREE.Vector2(), INTERSECTED;
+			//var mouse = new THREE.Vector2(), INTERSECTED;
 
 			init();
 			animate();
 
 			function init() {
+
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 10000 );
@@ -69,13 +70,13 @@
 					var object = new THREE.Mesh(geometry, material);
 					//var object = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ));
 
-
 					object.position.x = Math.random() * 1000 - 500;
 					object.position.y = Math.random() * 600 - 300;
 					object.position.z = Math.random() * 800 - 400;
 					// object.rotation.x = Math.random() * 2 * Math.PI;
 					// object.rotation.y = Math.random() * 2 * Math.PI;
 					// object.rotation.z = Math.random() * 2 * Math.PI;
+
 					object.castShadow = true;
 					object.receiveShadow = true;
 					scene.add( object );
@@ -90,6 +91,7 @@
 				renderer.shadowMap.enabled = true;
 				renderer.shadowMap.type = THREE.PCFShadowMap;
 				container.appendChild( renderer.domElement );
+
 				var dragControls = new THREE.DragControls( objects, camera, renderer.domElement );
 				dragControls.addEventListener( 'dragstart', function ( event ) { controls.enabled = false; } );
 				dragControls.addEventListener( 'dragend', function ( event ) { controls.enabled = true; } );
@@ -111,16 +113,15 @@
 				camera.updateProjectionMatrix();
 				renderer.setSize( window.innerWidth, window.innerHeight );
 			}
-			//
+			
 			function animate() {
 				requestAnimationFrame( animate );
 				render();
 				stats.update();
 			}
+
 			function render() {
 				controls.update();
 				renderer.render( scene, camera );
-
-
 			}
 		</script>
