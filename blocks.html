@@ -23,7 +23,7 @@
 			var container, stats;
 			var camera, controls, scene, renderer;
 			var objects = [];
-			//var mouse = new THREE.Vector2(), INTERSECTED;
+			// var mouse = new THREE.Vector2(), INTERSECTED;
 
 			init();
 			animate();
@@ -83,6 +83,8 @@
 					objects.push( object );
 				}
 
+				// raycaster = new THREE.Raycaster();
+
 				renderer = new THREE.WebGLRenderer( { antialias: true } );
 				renderer.setClearColor( 0xf0f0f0 );
 				renderer.setPixelRatio( window.devicePixelRatio );
@@ -103,7 +105,8 @@
 				container.appendChild( info );
 				stats = new Stats();
 				container.appendChild( stats.dom );
-				//
+
+				//document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 				window.addEventListener( 'resize', onWindowResize, false );
 			}
 
@@ -113,6 +116,12 @@
 				camera.updateProjectionMatrix();
 				renderer.setSize( window.innerWidth, window.innerHeight );
 			}
+
+			// function onDocumentMouseMove( event ) {
+			// 	event.preventDefault();
+			// 	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+			// 	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+			// }
 			
 			function animate() {
 				requestAnimationFrame( animate );
@@ -122,6 +131,21 @@
 
 			function render() {
 				controls.update();
+				
+
+				// raycaster.setFromCamera( mouse, camera );
+				// var intersects = raycaster.intersectObjects( scene.children );
+				// if ( intersects.length > 0 ) {
+				// 	if ( INTERSECTED != intersects[ 0 ].object ) {
+				// 		if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+				// 		INTERSECTED = intersects[ 0 ].object;
+				// 		INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+				// 		INTERSECTED.material.emissive.setHex( 0xff0000 );
+				// 	}
+				// } else {
+				// 	if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+				// 	INTERSECTED = null;
+				// }
 				renderer.render( scene, camera );
 			}
 		</script>

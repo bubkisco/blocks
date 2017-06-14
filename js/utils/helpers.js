@@ -45,16 +45,16 @@ function getCubeMap(i) {
 
     var envMaps = [
         {file: "block_test.jpg", size: 1024},
-        {file: "block_test.jpg", size: 512},
         {file: "block_test.jpg", size: 1024},
-        {file: "block_test.jpg", size: 512},
-        {file: "block_test.jpg", size: 512},
-        {file: "op.jpg", size: 1024},
-        {file: "shinyblue.jpg", size: 1024},
-        {file: "skyboxsun25degtest.jpg", size: 1024},
-        {file: "stormydays_large.jpg", size: 1024},
-        {file: "violentdays_large.jpg", size: 1024},
-        {file: "darkness.jpg", size: 1024},
+        {file: "block_test2.jpg", size: 1024},
+        {file: "block_test.jpg", size: 1024},
+        {file: "block_test.jpg", size: 1024},
+        {file: "block_test.jpg", size: 1024},
+        {file: "block_test.jpg", size: 1024},
+        {file: "block_test.jpg", size: 1024},
+        {file: "block_test.jpg", size: 1024},
+        {file: "block_test.jpg", size: 1024},
+        {file: "block_test.jpg", size: 1024},
     ];
 
     var loader = new THREE.ImageLoader();
