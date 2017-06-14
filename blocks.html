@@ -60,17 +60,26 @@
 		            var cubeShader = THREE.ShaderLib['cube'];
 		            cubeShader.uniforms['tCube'].value = cubeMap;
 
+		            //var texture1 = loader.load('assets/textures/wood_texture.jpg');
+		            var texture = new THREE.TextureLoader().load("assets/textures/wood_texture.jpg");
+		            texture.wrapS = THREE.RepeatWrapping;
+		            texture.wrapT = THREE.RepeatWrapping;
+		            texture.repeat.set(1,1);
+		            var material2 = new THREE.MeshPhongMaterial( { color: 0xffffff, map: texture });
+
+
 		            var material = new THREE.ShaderMaterial({
 		                 fragmentShader: cubeShader.fragmentShader,
 		                 vertexShader: cubeShader.vertexShader,
 		                 uniforms: cubeShader.uniforms,
 		                 depthWrite: false,
+		                 map: texture
             		});
 
 					var object = new THREE.Mesh(geometry, material);
 					//var object = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ));
 
-					object.position.x = Math.random() * 1000 - 500;
+					object.position.x = Math.random() * 1200 - 300;
 					object.position.y = Math.random() * 600 - 300;
 					object.position.z = Math.random() * 800 - 400;
 					// object.rotation.x = Math.random() * 2 * Math.PI;
