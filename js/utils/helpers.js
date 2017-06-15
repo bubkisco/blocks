@@ -38,32 +38,40 @@ function onWindowResize() {
 
 }
 
-function getCubeMap(i) {
+var envMaps = []; 
+for ( var i = 0; i < 3; i ++ ) {
+    var fileName = "block_test" + i.toString() + ".jpg";
+    envMaps[i] = {file: fileName, size: 1024};
+    // var envMaps = [
+    //     {file: "block_test.jpg", size: 1024},
+    //     {file: "block_test.jpg", size: 1024},
+    //     {file: "block_test2.jpg", size: 1024},
+    //     {file: "block_test.jpg", size: 1024},
+    //     {file: "block_test.jpg", size: 1024},
+    //     {file: "block_test.jpg", size: 1024},
+    //     {file: "block_test.jpg", size: 1024},
+    //     {file: "block_test.jpg", size: 1024},
+    //     {file: "block_test.jpg", size: 1024},
+    //     {file: "block_test.jpg", size: 1024},
+    //     {file: "block_test.jpg", size: 1024},
+    // ];
+}
+function getCubeMap(index) {
     var cubeMap = new THREE.Texture([]);
     cubeMap.format = THREE.RGBFormat;
     cubeMap.flipY = false;
 
-    var envMaps = [
-        {file: "block_test.jpg", size: 1024},
-        {file: "block_test.jpg", size: 1024},
-        {file: "block_test2.jpg", size: 1024},
-        {file: "block_test.jpg", size: 1024},
-        {file: "block_test.jpg", size: 1024},
-        {file: "block_test.jpg", size: 1024},
-        {file: "block_test.jpg", size: 1024},
-        {file: "block_test.jpg", size: 1024},
-        {file: "block_test.jpg", size: 1024},
-        {file: "block_test.jpg", size: 1024},
-        {file: "block_test.jpg", size: 1024},
-    ];
+   
 
     var loader = new THREE.ImageLoader();
     var pre = "assets/textures/";
     // if (user)
     //     pre = "../../assets/textures/";
-    var file = pre + envMaps[i].file;
-    var size = envMaps[i].size;
-    loader.load(file, function (image) {
+    var file = pre + envMaps[index].file; 
+    console.log(index, file);    //var file = pre + "block_test1.jpg"
+    var size = 1024;
+    loader.load(file, function (image) {        
+
         var getSide = function (x, y) {
 
             var canvas = document.createElement('canvas');

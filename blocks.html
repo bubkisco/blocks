@@ -23,7 +23,6 @@
 			var container, stats;
 			var camera, controls, scene, renderer;
 			var objects = [];
-			// var mouse = new THREE.Vector2(), INTERSECTED;
 
 			init();
 			animate();
@@ -55,17 +54,18 @@
 
 				var geometry = new THREE.BoxGeometry( 100, 100, 100 );
 
-				for ( var i = 0; i < 45; i ++ ) {
-            		var cubeMap = getCubeMap(2);
+				for ( var i = 0; i < 2; i ++ ) {
+            		var cubeMap = getCubeMap(i);
+            		// console.log(i,cubeMap);
 		            var cubeShader = THREE.ShaderLib['cube'];
 		            cubeShader.uniforms['tCube'].value = cubeMap;
 
 		            //var texture1 = loader.load('assets/textures/wood_texture.jpg');
-		            var texture = new THREE.TextureLoader().load("assets/textures/wood_texture.jpg");
-		            texture.wrapS = THREE.RepeatWrapping;
-		            texture.wrapT = THREE.RepeatWrapping;
-		            texture.repeat.set(1,1);
-		            var material2 = new THREE.MeshPhongMaterial( { color: 0xffffff, map: texture });
+		            // var texture = new THREE.TextureLoader().load("assets/textures/wood_texture.jpg");
+		            // texture.wrapS = THREE.RepeatWrapping;
+		            // texture.wrapT = THREE.RepeatWrapping;
+		            // texture.repeat.set(1,1);
+		            //var material2 = new THREE.MeshPhongMaterial( { color: 0xffffff, map: texture });
 
 
 		            var material = new THREE.ShaderMaterial({
@@ -73,12 +73,12 @@
 		                 vertexShader: cubeShader.vertexShader,
 		                 uniforms: cubeShader.uniforms,
 		                 depthWrite: false,
-		                 map: texture
+		                 //map: texture
             		});
 
-					var object = new THREE.Mesh(geometry, material);
+					var object = new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material);
 					//var object = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ));
-
+debugger;
 					object.position.x = Math.random() * 1200 - 300;
 					object.position.y = Math.random() * 600 - 300;
 					object.position.z = Math.random() * 800 - 400;
@@ -92,8 +92,43 @@
 					objects.push( object );
 				}
 
-				// raycaster = new THREE.Raycaster();
+				//xx
+				            		var cubeMap = getCubeMap(2);
+				            		// console.log(i,cubeMap);
+						            var cubeShader = THREE.ShaderLib['cube'];
+						            cubeShader.uniforms['tCube'].value = cubeMap;
 
+						            //var texture1 = loader.load('assets/textures/wood_texture.jpg');
+						            // var texture = new THREE.TextureLoader().load("assets/textures/wood_texture.jpg");
+						            // texture.wrapS = THREE.RepeatWrapping;
+						            // texture.wrapT = THREE.RepeatWrapping;
+						            // texture.repeat.set(1,1);
+						            //var material2 = new THREE.MeshPhongMaterial( { color: 0xffffff, map: texture });
+
+
+						            var material = new THREE.ShaderMaterial({
+						                 fragmentShader: cubeShader.fragmentShader,
+						                 vertexShader: cubeShader.vertexShader,
+						                 uniforms: cubeShader.uniforms,
+						                 depthWrite: false,
+						                 //map: texture
+				            		});
+
+									var object = new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material);
+									//var object = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ));
+
+									object.position.x = Math.random() * 1200 - 300;
+									object.position.y = Math.random() * 600 - 300;
+									object.position.z = Math.random() * 800 - 400;
+									// object.rotation.x = Math.random() * 2 * Math.PI;
+									// object.rotation.y = Math.random() * 2 * Math.PI;
+									// object.rotation.z = Math.random() * 2 * Math.PI;
+
+									object.castShadow = true;
+									object.receiveShadow = true;
+									scene.add( object );
+									objects.push( object );
+				//xx
 				renderer = new THREE.WebGLRenderer( { antialias: true } );
 				renderer.setClearColor( 0xf0f0f0 );
 				renderer.setPixelRatio( window.devicePixelRatio );
@@ -106,16 +141,7 @@
 				var dragControls = new THREE.DragControls( objects, camera, renderer.domElement );
 				dragControls.addEventListener( 'dragstart', function ( event ) { controls.enabled = false; } );
 				dragControls.addEventListener( 'dragend', function ( event ) { controls.enabled = true; } );
-				var info = document.createElement( 'div' );
-				info.style.position = 'absolute';
-				info.style.top = '10px';
-				info.style.width = '100%';
-				info.style.textAlign = 'center';
-				container.appendChild( info );
-				stats = new Stats();
-				container.appendChild( stats.dom );
-
-				//document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		
 				window.addEventListener( 'resize', onWindowResize, false );
 			}
 
@@ -125,36 +151,15 @@
 				camera.updateProjectionMatrix();
 				renderer.setSize( window.innerWidth, window.innerHeight );
 			}
-
-			// function onDocumentMouseMove( event ) {
-			// 	event.preventDefault();
-			// 	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-			// 	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-			// }
 			
 			function animate() {
 				requestAnimationFrame( animate );
 				render();
-				stats.update();
+				//stats.update();
 			}
 
 			function render() {
 				controls.update();
-				
-
-				// raycaster.setFromCamera( mouse, camera );
-				// var intersects = raycaster.intersectObjects( scene.children );
-				// if ( intersects.length > 0 ) {
-				// 	if ( INTERSECTED != intersects[ 0 ].object ) {
-				// 		if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-				// 		INTERSECTED = intersects[ 0 ].object;
-				// 		INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-				// 		INTERSECTED.material.emissive.setHex( 0xff0000 );
-				// 	}
-				// } else {
-				// 	if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-				// 	INTERSECTED = null;
-				// }
 				renderer.render( scene, camera );
 			}
 		</script>
